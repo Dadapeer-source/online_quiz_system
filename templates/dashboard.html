@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard | Online Exam System</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        body {
+            margin: 0;
+            background: #f4f6f9;
+            min-height: 100vh;
+            display: flex;
+        }
+
+        .sidebar {
+            width: 240px;
+            background: linear-gradient(180deg, #1e3c72, #2a5298);
+            color: white;
+            padding: 25px;
+            display: flex;
+            flex-direction: column;
+            animation: slideInLeft 0.6s ease;
+        }
+
+        .sidebar h2 {
+            margin-bottom: 30px;
+            text-align: center;
+            font-size: 20px;
+        }
+
+        .nav-link {
+            padding: 12px;
+            margin-bottom: 10px;
+            border-radius: 6px;
+            color: white;
+            text-decoration: none;
+            transition: 0.3s;
+            display: block;
+        }
+
+        .nav-link:hover {
+            background: rgba(255,255,255,0.2);
+            transform: translateX(5px);
+        }
+
+        .content {
+            flex: 1;
+            padding: 40px;
+            animation: fadeIn 0.8s ease;
+        }
+
+        .header {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #2a5298;
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            transition: 0.3s;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+
+        .card h3 {
+            margin: 0 0 10px;
+            color: #1e3c72;
+        }
+
+        .card p {
+            font-size: 14px;
+            color: #555;
+        }
+
+        .logout {
+            margin-top: auto;
+            padding: 12px;
+            text-align: center;
+            border-radius: 6px;
+            background: rgba(255,255,255,0.2);
+            text-decoration: none;
+            color: white;
+            transition: 0.3s;
+        }
+
+        .logout:hover {
+            background: rgba(255,255,255,0.35);
+        }
+
+        @keyframes slideInLeft {
+            from { transform: translateX(-100%); }
+            to { transform: translateX(0); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+<div class="sidebar">
+    <h2>Exam Portal</h2>
+
+    {% if role == 'admin' %}
+        <a class="nav-link" href="{{ url_for('create_exam') }}">Create Exam</a>
+        <a class="nav-link" href="{{ url_for('admin_exams') }}">Manage Exams</a>
+        <a class="nav-link" href="{{ url_for('admin_results') }}">Results Analytics</a>
+    {% else %}
+        <a class="nav-link" href="{{ url_for('student_exams') }}">Available Exams</a>
+    {% endif %}
+
+    <a class="logout" href="{{ url_for('logout') }}">Logout</a>
+</div>
+
+<div class="content">
+    <div class="header">
+        Welcome, {{ role|capitalize }}
+    </div>
+
+    <div class="cards">
+        {% if role == 'admin' %}
+            <div class="card" onclick="location.href='{{ url_for('create_exam') }}'">
+                <h3>Create Exam</h3>
+                <p>Add new exams with timer and marking scheme.</p>
+            </div>
+
+            <div class="card" onclick="location.href='{{ url_for('admin_exams') }}'">
+                <h3>Manage Questions</h3>
+                <p>Add, edit and organize exam questions.</p>
+            </div>
+
+            <div class="card" onclick="location.href='{{ url_for('admin_results') }}'">
+                <h3>View Results</h3>
+                <p>Analytics, Excel & PDF downloads.</p>
+            </div>
+        {% else %}
+            <div class="card" onclick="location.href='{{ url_for('student_exams') }}'">
+                <h3>Take Exam</h3>
+                <p>Start your available tests with timer.</p>
+            </div>
+
+            <div class="card" onclick="location.href='{{ url_for('student_history') }}'">
+    <h3>Performance</h3>
+    <p>View your previous results and scores.</p>
+</div>
+        {% endif %}
+    </div>
+</div>
+
+</body>
+</html>

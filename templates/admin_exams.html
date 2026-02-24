@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Manage Exams | Admin</title>
+    <style>
+        body {
+            margin: 0;
+            background: #f4f6f9;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        .container {
+            padding: 40px;
+        }
+
+        h2 {
+            color: #1e3c72;
+            margin-bottom: 20px;
+        }
+
+        .top-actions {
+            margin-bottom: 20px;
+        }
+
+        .btn {
+            padding: 10px 16px;
+            background: #2a5298;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            text-decoration: none;
+            font-size: 14px;
+            transition: 0.3s;
+        }
+
+        .btn:hover {
+            background: #1e3c72;
+            transform: scale(1.05);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            animation: fadeIn 0.6s ease;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: center;
+        }
+
+        th {
+            background: #2a5298;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background: #f2f2f2;
+        }
+
+        tr:hover {
+            background: #e9eff7;
+        }
+
+        .action-btn {
+            background: #28a745;
+            padding: 6px 12px;
+            border-radius: 4px;
+            color: white;
+            text-decoration: none;
+            font-size: 13px;
+            transition: 0.3s;
+        }
+
+        .action-btn:hover {
+            background: #1e7e34;
+        }
+
+        .back {
+            margin-top: 20px;
+            display: inline-block;
+        }
+
+        @keyframes fadeIn {
+            from {opacity: 0; transform: translateY(15px);}
+            to {opacity: 1; transform: translateY(0);}
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>All Exams</h2>
+
+    <div class="top-actions">
+        <a class="btn" href="{{ url_for('create_exam') }}">Create New Exam</a>
+        <a class="btn" href="{{ url_for('dashboard') }}">Back to Dashboard</a>
+    </div>
+
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Title</th>
+            <th>Duration (min)</th>
+            <th>Total Marks</th>
+            <th>Action</th>
+        </tr>
+
+        {% for exam in exams %}
+        <tr>
+            <td>{{ exam.id }}</td>
+            <td>{{ exam.title }}</td>
+            <td>{{ exam.duration }}</td>
+            <td>{{ exam.total_marks }}</td>
+            <td>
+                <a class="action-btn" href="/admin/exam/{{ exam.id }}/add_question">
+                    Add Questions
+                </a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+
+</body>
+</html>

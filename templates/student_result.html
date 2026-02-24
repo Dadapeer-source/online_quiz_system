@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Exam Result</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(120deg, #1e3c72, #2a5298);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .result-card {
+            background: white;
+            width: 400px;
+            padding: 30px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+            animation: popIn 0.6s ease;
+        }
+
+        h2 {
+            color: #2a5298;
+            margin-bottom: 15px;
+        }
+
+        .score {
+            font-size: 28px;
+            font-weight: bold;
+            color: #1e3c72;
+            margin: 15px 0;
+        }
+
+        .percentage {
+            font-size: 22px;
+            color: #28a745;
+            margin-bottom: 20px;
+        }
+
+        .details {
+            font-size: 14px;
+            color: #555;
+            margin-bottom: 25px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 10px 18px;
+            background: #2a5298;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            transition: 0.3s;
+            font-size: 14px;
+        }
+
+        .btn:hover {
+            background: #1e3c72;
+            transform: scale(1.05);
+        }
+
+        @keyframes popIn {
+            from {opacity: 0; transform: scale(0.8);}
+            to {opacity: 1; transform: scale(1);}
+        }
+    </style>
+</head>
+<body>
+
+<div class="result-card">
+    <h2>Exam Result</h2>
+
+    <div class="score">
+        Score: {{ score }} / {{ total }}
+    </div>
+
+    <div class="percentage">
+        {{ percentage | round(2) }} %
+    </div>
+
+    <div class="details">
+        Your exam has been successfully submitted.
+    </div>
+
+    <a class="btn" href="{{ url_for('dashboard') }}">Back to Dashboard</a>
+</div>
+
+</body>
+</html>

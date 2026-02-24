@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Results Analytics | Admin</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', sans-serif;
+            background: #f4f6f9;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 40px auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            animation: fadeIn 0.6s ease;
+        }
+
+        h2 {
+            color: #1e3c72;
+            margin-bottom: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 30px;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: center;
+        }
+
+        th {
+            background: #2a5298;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background: #f2f2f2;
+        }
+
+        tr:hover {
+            background: #e9eff7;
+        }
+
+        .btn {
+            padding: 8px 14px;
+            background: #2a5298;
+            color: white;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 13px;
+            transition: 0.3s;
+            margin: 2px;
+            display: inline-block;
+        }
+
+        .btn:hover {
+            background: #1e3c72;
+            transform: scale(1.05);
+        }
+
+        .back {
+            display: inline-block;
+            margin-top: 10px;
+        }
+
+        @keyframes fadeIn {
+            from {opacity: 0; transform: translateY(15px);}
+            to {opacity: 1; transform: translateY(0);}
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Exam Statistics</h2>
+
+    <table>
+        <tr>
+            <th>Exam</th>
+            <th>Attempts</th>
+            <th>Highest</th>
+            <th>Average</th>
+            <th>Lowest</th>
+            <th>Excel</th>
+            <th>PDF</th>
+        </tr>
+
+        {% for exam in exam_stats %}
+        <tr>
+            <td>{{ exam.title }}</td>
+            <td>{{ exam.attempts }}</td>
+            <td>{{ exam.highest if exam.highest else 0 }}</td>
+            <td>{{ "%.2f"|format(exam.average) if exam.average else 0 }}</td>
+            <td>{{ exam.lowest if exam.lowest else 0 }}</td>
+            <td>
+                <a class="btn" href="/admin/export_exam/{{ exam.id }}">Excel</a>
+            </td>
+            <td>
+                <a class="btn" href="/admin/export_exam_pdf/{{ exam.id }}">PDF</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <h2>Student Wise Results</h2>
+
+    <table>
+        <tr>
+            <th>Student</th>
+            <th>Exam</th>
+            <th>Score</th>
+            <th>Total</th>
+            <th>Percentage</th>
+            <th>Date</th>
+        </tr>
+
+        {% for r in detailed_results %}
+        <tr>
+            <td>{{ r.student_name }}</td>
+            <td>{{ r.exam_title }}</td>
+            <td>{{ r.score }}</td>
+            <td>{{ r.total_marks }}</td>
+            <td>{{ (r.score / r.total_marks * 100) | round(2) }}%</td>
+            <td>{{ r.submitted_at }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <a class="btn back" href="{{ url_for('dashboard') }}">Back to Dashboard</a>
+</div>
+
+</body>
+</html>

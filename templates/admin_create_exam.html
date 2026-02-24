@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Create Exam | Admin</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(120deg, #1e3c72, #2a5298);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .form-card {
+            background: white;
+            padding: 30px;
+            width: 400px;
+            border-radius: 12px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+            animation: fadeIn 0.7s ease;
+        }
+
+        h2 {
+            text-align: center;
+            color: #2a5298;
+            margin-bottom: 20px;
+        }
+
+        .input-group {
+            margin-bottom: 18px;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 6px;
+            color: #333;
+            font-size: 13px;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 10px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            outline: none;
+            font-size: 14px;
+        }
+
+        .input-group input:focus {
+            border-color: #2a5298;
+            box-shadow: 0 0 5px rgba(42,82,152,0.4);
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background: #2a5298;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 15px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background: #1e3c72;
+            transform: scale(1.03);
+        }
+
+        .links {
+            text-align: center;
+            margin-top: 15px;
+        }
+
+        .links a {
+            text-decoration: none;
+            color: #2a5298;
+            font-size: 13px;
+            margin: 0 8px;
+        }
+
+        @keyframes fadeIn {
+            from {opacity: 0; transform: translateY(20px);}
+            to {opacity: 1; transform: translateY(0);}
+        }
+    </style>
+</head>
+<body>
+
+<div class="form-card">
+    <h2>Create New Exam</h2>
+
+    <form method="post">
+        <div class="input-group">
+            <label>Exam Title</label>
+            <input type="text" name="title" required>
+        </div>
+
+        <div class="input-group">
+            <label>Duration (minutes)</label>
+            <input type="number" name="duration" required>
+        </div>
+
+        <div class="input-group">
+            <label>Total Marks</label>
+            <input type="number" name="total_marks" required>
+        </div>
+
+        <button type="submit">Create Exam</button>
+    </form>
+
+    <div class="links">
+        <a href="{{ url_for('admin_exams') }}">View Exams</a> |
+        <a href="{{ url_for('dashboard') }}">Dashboard</a>
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ exam.title }} | Online Exam</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', sans-serif;
+            background: #f4f6f9;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 30px auto;
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        h2 {
+            color: #1e3c72;
+            text-align: center;
+        }
+
+        .timer {
+            text-align: center;
+            font-size: 20px;
+            color: #d9534f;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .question-box {
+            margin-bottom: 25px;
+            padding: 15px;
+            border-radius: 8px;
+            background: #f8f9fc;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .question-box p {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .option {
+            margin-bottom: 8px;
+        }
+
+        .option input {
+            margin-right: 8px;
+        }
+
+        button {
+            padding: 12px 20px;
+            background: #2a5298;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 15px;
+            transition: 0.3s;
+            display: block;
+            margin: auto;
+        }
+
+        button:hover {
+            background: #1e3c72;
+            transform: scale(1.05);
+        }
+
+        @keyframes fadeIn {
+            from {opacity: 0; transform: translateY(10px);}
+            to {opacity: 1; transform: translateY(0);}
+        }
+    </style>
+
+    <script>
+        let time = {{ exam.duration }} * 60;
+
+        function startTimer() {
+            const timerElement = document.getElementById("timer");
+
+            const interval = setInterval(() => {
+                let minutes = Math.floor(time / 60);
+                let seconds = time % 60;
+
+                timerElement.innerHTML = minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
+
+                if (time <= 0) {
+                    clearInterval(interval);
+                    alert("Time over! Exam will be submitted automatically.");
+                    document.getElementById("examForm").submit();
+                }
+
+                time--;
+            }, 1000);
+        }
+    </script>
+</head>
+<body onload="startTimer()">
+
+<div class="container">
+    <h2>{{ exam.title }}</h2>
+    <div class="timer">Time Left: <span id="timer"></span></div>
+
+    <form method="post" action="/student/submit_exam/{{ exam.id }}" id="examForm">
+
+        {% for q in questions %}
+        <div class="question-box">
+            <p>{{ loop.index }}. {{ q.question_text }}</p>
+
+            {% for opt in q.shuffled_options %}
+            <div class="option">
+                <label>
+                    <input type="radio" name="q{{ q.id }}" value="{{ loop.index }}" required>
+                    {{ opt.text }}
+                </label>
+            </div>
+            {% endfor %}
+        </div>
+        {% endfor %}
+
+        <button type="submit">Submit Exam</button>
+    </form>
+</div>
+
+</body>
+</html>

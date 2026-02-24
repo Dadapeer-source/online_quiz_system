@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Register | Online Exam System</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        body {
+            margin: 0;
+            height: 100vh;
+            background: linear-gradient(120deg, #0f2027, #203a43, #2c5364);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .register-card {
+            background: #fff;
+            width: 380px;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+            animation: slideIn 0.8s ease;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #2c5364;
+        }
+
+        .input-group {
+            margin-bottom: 18px;
+            position: relative;
+        }
+
+        .input-group input,
+        .input-group select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            outline: none;
+            font-size: 14px;
+            background: white;
+        }
+
+        .input-group label {
+            position: absolute;
+            top: 50%;
+            left: 10px;
+            color: #777;
+            font-size: 12px;
+            transform: translateY(-50%);
+            pointer-events: none;
+            transition: 0.3s;
+            background: #fff;
+            padding: 0 5px;
+        }
+
+        .input-group input:focus + label,
+        .input-group input:not(:placeholder-shown) + label {
+            top: -8px;
+            font-size: 10px;
+            color: #2c5364;
+        }
+
+        .input-group select:focus + label {
+            top: -8px;
+            font-size: 10px;
+            color: #2c5364;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background: #2c5364;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background: #203a43;
+            transform: scale(1.03);
+        }
+
+        .link {
+            text-align: center;
+            margin-top: 15px;
+        }
+
+        .link a {
+            text-decoration: none;
+            color: #2c5364;
+            font-size: 13px;
+        }
+
+        @keyframes slideIn {
+            from {opacity: 0; transform: translateY(30px);}
+            to {opacity: 1; transform: translateY(0);}
+        }
+    </style>
+</head>
+<body>
+
+<div class="register-card">
+    <h2>Create Account</h2>
+    <form method="post">
+        <div class="input-group">
+            <input type="text" name="name" required placeholder=" ">
+            <label>Full Name</label>
+        </div>
+
+        <div class="input-group">
+            <input type="email" name="email" required placeholder=" ">
+            <label>Email</label>
+        </div>
+
+        <div class="input-group">
+            <input type="password" name="password" required placeholder=" ">
+            <label>Password</label>
+        </div>
+
+        <div class="input-group">
+            <select name="role" required>
+                <option value="" disabled selected hidden></option>
+                <option value="student">Student</option>
+                <option value="admin">Admin</option>
+            </select>
+            <label>Role</label>
+        </div>
+
+        <button type="submit">Register</button>
+    </form>
+
+    <div class="link">
+        <a href="/login">Already have an account? Login</a>
+    </div>
+</div>
+
+</body>
+</html>
