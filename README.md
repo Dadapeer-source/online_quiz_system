@@ -76,7 +76,7 @@ online_quiz_system/
 
 ### 1. Clone Repository
 ```bash
-git clone https://github.com/your-username/online-exam-system.git
+git clone https://github.com/Dadapeer-source/online_quiz_system.git
 cd online-exam-system
 
 
